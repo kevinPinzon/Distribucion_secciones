@@ -21,8 +21,14 @@ function Distribuciones_secciones (){
 	creacion_lista_clase(lista_alumnos_clase); // metodo para determinar la cantidad de clases distintas
 	matriz_adyacente = matrix();
 	division_adyacencia(lista_alumnos_clase);
-	print(matriz_adyacente);
+//	print(matriz_adyacente);
 	obtener_no_adyacentes();
+	lista_total_hora_clase.sort(function (a, b) {
+  return b.length - a.length;
+});
+
+
+
 	console.log(lista_total_hora_clase);
 	var date2 = new Date;
 	console.log(date2);
@@ -137,6 +143,9 @@ function agregar_adyacencia(lista_clase){
 		}
 	}
 }
+
+
+
 function 	obtener_no_adyacentes(){
 	var marcados = [];
 	var temp = [];
@@ -160,6 +169,9 @@ function 	obtener_no_adyacentes(){
 						if (flag) {
 							marcados.push(lista_total_clases[j]);
 							temp_por_hora.push(lista_total_clases[j]);
+						} else {
+							temp.splice(temp[temp.length-1], 1);
+							console.log(1)
 						}
 					} else {
 
@@ -182,9 +194,9 @@ function 	obtener_no_adyacentes(){
 
 function validar_no_adyacentes(temp){
 	var row = 0;
-	var col =temp[temp.length-1];
-	var ans = true;
-	for (var i = 1; i < temp.length-1; i++) {
+	var col = temp[temp.length-1]; // el elemento en la ultima posicion
+
+	for (var i = 0; i < temp.length-1; i++) {
 		row = temp[i];
 		if (matriz_adyacente[row][col] === "0" || matriz_adyacente[row][col] === "X") {
 
