@@ -1,2 +1,1 @@
-# Distribucion_secciones
-Proyecto de la clase de analisis de algoritmos
+Proyecto de Analisis de algoritmo.
