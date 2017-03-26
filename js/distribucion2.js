@@ -5,6 +5,7 @@ var matriz_adyacente = [];
 var lista_aulas = [];
 var lista_horarios = [];
 var lista_total_hora_clase = [];
+var lista_hora_clase = [];
 
 
 function limpiar(){
@@ -34,7 +35,10 @@ function Distribuciones_secciones (){
 
 
 	obtener_no_adyacentes();
-	console.log(lista_total_hora_clase);
+	//console.log(lista_total_hora_clase);
+	distribuir_con_colisiones();
+	console.log(lista_hora_clase);
+	console.log(lista_total_clases.length)
 	var date2 = new Date;
 	console.log(date2);
 
@@ -155,14 +159,15 @@ function 	obtener_no_adyacentes(){
 	var flag;
 
 	for (var i = 0; i < lista_total_clases.length; i++) {
-		if (marcados.indexOf(lista_total_clases[i]) === -1  &&  lista_total_hora_clase.length < lista_horarios.length ) { // aqui tambien
+		//&&  lista_total_hora_clase.length < lista_horarios.length
+		if (marcados.indexOf(lista_total_clases[i]) === -1  ) { // aqui tambien
 			temp.push(i);
 			marcados.push(lista_total_clases[i]);
 			temp_por_hora.push(lista_total_clases[i]);
 
-
+			// &&  temp.length < lista_aulas.length
 			for (var j = 0; j < matriz_adyacente[i].length; j++) {
-				if (matriz_adyacente[i][j] === "0" && marcados.indexOf(lista_total_clases[j]) === -1  &&  temp.length < lista_aulas.length ) { //aqui deberia ir la validacion de las aulas
+				if (matriz_adyacente[i][j] === "0" && marcados.indexOf(lista_total_clases[j]) === -1  ) { //aqui deberia ir la validacion de las aulas
 					temp.push(j);
 					//console.log(temp);
 					if (temp.length > 2) {
@@ -206,3 +211,37 @@ function validar_no_adyacentes(temp){
 	}
 	return true;
 }
+
+
+
+
+function distribuir_con_colisiones(){
+	var cont = 0;
+	var inicio = false;
+	for (var i = 0; i < lista_total_hora_clase.length; i++) {
+	 if (inicio) {
+
+		 if (lista_hora_clase[cont].length < lista_aulas.length) {
+			 //console.log()
+			 lista_hora_clase[cont] = lista_hora_clase[cont].concat(lista_total_hora_clase[i]);
+
+			 if (cont < lista_horarios.length-1) {
+					cont++;
+			 } else {
+				 cont = 0;
+			 }
+		 }
+	 } else {
+		  lista_hora_clase.push(lista_total_hora_clase[i]);
+			if (cont < lista_horarios.length-1) {
+				cont++;
+			} else {
+				cont = 0;
+				inicio = true;
+			}
+	 }
+
+
+		}
+
+	}
