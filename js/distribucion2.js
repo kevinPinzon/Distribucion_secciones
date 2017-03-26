@@ -11,6 +11,7 @@ function limpiar(){
 	$("#alumnos_clase").val(" ");
 	$("#aulas").val(" ");
 	$("#horarios").val(" ");
+	location.reload();
 }
 
 function Distribuciones_secciones (){
@@ -19,14 +20,19 @@ function Distribuciones_secciones (){
 
 	var alumnos_clase = document.getElementById("alumnos_clase").value; //obtiene los elemntos del text area
 	var lista_alumnos_clase = alumnos_clase.split("\n"); //crea el arreglo divido por el salto de linea
+
 	var aulas = document.getElementById("aulas").value; //obtiene los elemntos del text area
-	var lista_aulas = alumnos_clase.split("\n"); //crea el arreglo divido por el salto de linea
+	 lista_aulas = aulas.split("\n"); //crea el arreglo divido por el salto de linea
+
 	var horarios = document.getElementById("horarios").value; //obtiene los elemntos del text area
-	var lista_horarios = alumnos_clase.split("\n"); //crea el arreglo divido por el salto de linea
+	 lista_horarios = horarios.split("\n"); //crea el arreglo divido por el salto de linea
+
 	creacion_lista_clase(lista_alumnos_clase); // metodo para determinar la cantidad de clases distintas
 	matriz_adyacente = matrix();
 	division_adyacencia(lista_alumnos_clase);
-	print(matriz_adyacente);
+	//print(matriz_adyacente);
+
+
 	obtener_no_adyacentes();
 	console.log(lista_total_hora_clase);
 	var date2 = new Date;
@@ -149,14 +155,14 @@ function 	obtener_no_adyacentes(){
 	var flag;
 
 	for (var i = 0; i < lista_total_clases.length; i++) {
-		if (marcados.indexOf(lista_total_clases[i]) === -1 ) { // aqui tambien
+		if (marcados.indexOf(lista_total_clases[i]) === -1  &&  lista_total_hora_clase.length < lista_horarios.length ) { // aqui tambien
 			temp.push(i);
 			marcados.push(lista_total_clases[i]);
 			temp_por_hora.push(lista_total_clases[i]);
 
 
 			for (var j = 0; j < matriz_adyacente[i].length; j++) {
-				if (matriz_adyacente[i][j] === "0" && marcados.indexOf(lista_total_clases[j]) === -1 ) { //aqui deberia ir la validacion de las aulas
+				if (matriz_adyacente[i][j] === "0" && marcados.indexOf(lista_total_clases[j]) === -1  &&  temp.length < lista_aulas.length ) { //aqui deberia ir la validacion de las aulas
 					temp.push(j);
 					//console.log(temp);
 					if (temp.length > 2) {
