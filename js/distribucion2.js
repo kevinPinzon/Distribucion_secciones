@@ -8,6 +8,8 @@ var lista_total_hora_clase = [];
 var lista_hora_clase = [];
 
 var table = document.getElementById("mytable").getElementsByTagName('tbody')[0];
+// var tableHead2 = document.getElementById("mytable2").getElementsByTagName('thead')[0];
+// var table2 = document.getElementById("mytable2").getElementsByTagName('tbody')[0];
 
 function limpiar(){
 	$("#alumnos_clase").val(" ");
@@ -18,6 +20,7 @@ function limpiar(){
 
 function Distribuciones_secciones (){
 	var date = new Date;
+	console.log(date);
 
 	var alumnos_clase = document.getElementById("alumnos_clase").value; //obtiene los elemntos del text area
 	var lista_alumnos_clase = alumnos_clase.split("\n"); //crea el arreglo divido por el salto de linea
@@ -40,6 +43,7 @@ function Distribuciones_secciones (){
 	console.log(lista_hora_clase);
 	console.log(lista_total_clases.length)
 	setTable(lista_hora_clase);
+	// setTable2(lista_hora_clase);
 	var date2 = new Date;
 	console.log(date2);
 }
@@ -237,8 +241,6 @@ function distribuir_con_colisiones(){
 				inicio = true;
 			}
 	 }
-
-
 		}
 
 	}
@@ -249,8 +251,8 @@ function distribuir_con_colisiones(){
 		for (var i = 0; i < lista_hora_clase.length; i++) {
 			aula++;
 			array_clasesMismaHora= lista_hora_clase[i];
-
 			for (var j = 0; j < array_clasesMismaHora.length; j++) {
+				// aula = 100;
 				var rowActual = table.rows.length;
 				var row = table.insertRow(rowActual);
 				var cell1 = row.insertCell(0);
@@ -258,7 +260,8 @@ function distribuir_con_colisiones(){
 				var cell3 = row.insertCell(2);
 				cell3.innerHTML = ""+array_clasesMismaHora[j];
 				cell2.innerHTML = ""+(aula);
-				switch (j) {
+
+				switch (i) {
 					case 0:
 					cell1.innerHTML = "7:00 AM - 8:30 AM";
 					break;
@@ -290,7 +293,7 @@ function distribuir_con_colisiones(){
 					cell1.innerHTML = "7:50 PM - 8:20 PM";
 					break;
 					default:
-					console.log("cagada");
+					console.log("algo salio mal");
 					break;
 				}
 			}
