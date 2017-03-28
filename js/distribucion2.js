@@ -7,6 +7,7 @@ var lista_horarios = [];
 var lista_total_hora_clase = [];
 var lista_hora_clase = [];
 
+var table = document.getElementById("mytable").getElementsByTagName('tbody')[0];
 
 function limpiar(){
 	$("#alumnos_clase").val(" ");
@@ -17,7 +18,6 @@ function limpiar(){
 
 function Distribuciones_secciones (){
 	var date = new Date;
-	console.log(date);
 
 	var alumnos_clase = document.getElementById("alumnos_clase").value; //obtiene los elemntos del text area
 	var lista_alumnos_clase = alumnos_clase.split("\n"); //crea el arreglo divido por el salto de linea
@@ -33,16 +33,15 @@ function Distribuciones_secciones (){
 	division_adyacencia(lista_alumnos_clase);
 	//print(matriz_adyacente);
 
-
 	obtener_no_adyacentes();
 	//console.log(lista_total_hora_clase);
 	distribuir_con_colisiones();
+
 	console.log(lista_hora_clase);
 	console.log(lista_total_clases.length)
+	setTable(lista_hora_clase);
 	var date2 = new Date;
 	console.log(date2);
-
-
 }
 
 function creacion_lista_clase(lista_alumnos_clase){
@@ -213,8 +212,6 @@ function validar_no_adyacentes(temp){
 }
 
 
-
-
 function distribuir_con_colisiones(){
 	var cont = 0;
 	var inicio = false;
@@ -244,4 +241,58 @@ function distribuir_con_colisiones(){
 
 		}
 
+	}
+
+	function setTable(lista_hora_clase){
+		var aula = 100;
+		var array_clasesMismaHora;
+		for (var i = 0; i < lista_hora_clase.length; i++) {
+			aula++;
+			array_clasesMismaHora= lista_hora_clase[i];
+
+			for (var j = 0; j < array_clasesMismaHora.length; j++) {
+				var rowActual = table.rows.length;
+				var row = table.insertRow(rowActual);
+				var cell1 = row.insertCell(0);
+				var cell2 = row.insertCell(1);
+				var cell3 = row.insertCell(2);
+				cell3.innerHTML = ""+array_clasesMismaHora[j];
+				cell2.innerHTML = ""+(aula);
+				switch (j) {
+					case 0:
+					cell1.innerHTML = "7:00 AM - 8:30 AM";
+					break;
+					case 1:
+					cell1.innerHTML = "8:30 AM - 10:00 AM";
+					break;
+					case 2:
+					cell1.innerHTML = "10:10 AM - 11:30 AM";
+					break;
+					case 3:
+					cell1.innerHTML = "11:30 AM - 1:00 PM";
+					break;
+					case 4:
+					cell1.innerHTML = "1:00 PM - 2:20 PM";
+					break;
+					case 5:
+					cell1.innerHTML = "2:20 PM - 3:40 PM";
+					break;
+					case 6:
+					cell1.innerHTML = "3:40 PM - 5:00 PM";
+					break;
+					case 7:
+					cell1.innerHTML = "5:10 PM - 6:30 PM";
+					break;
+					case 8:
+					cell1.innerHTML = "6:30 PM - 7:20 PM";
+					break;
+					case 9:
+					cell1.innerHTML = "7:50 PM - 8:20 PM";
+					break;
+					default:
+					console.log("cagada");
+					break;
+				}
+			}
+		}
 	}
